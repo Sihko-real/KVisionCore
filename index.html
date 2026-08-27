@@ -1,1 +1,474 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <title>KVisionCore</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: #0b1020;
+      color: white;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 8%;
+      background: rgba(17, 24, 43, 0.95);
+      border-bottom: 1px solid #24304a;
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    .logo span {
+      color: #8b9cff;
+    }
+
+    nav {
+      display: flex;
+      gap: 20px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      color: #8b9cff;
+    }
+
+    .hero {
+      min-height: 75vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 80px 20px;
+      background:
+        radial-gradient(circle at top, #1d2a55 0%, transparent 45%),
+        #0b1020;
+    }
+
+    .hero h1 {
+      font-size: clamp(50px, 9vw, 100px);
+      margin-bottom: 20px;
+    }
+
+    .hero h1 span {
+      color: #8b9cff;
+    }
+
+    .hero p {
+      max-width: 750px;
+      font-size: 20px;
+      line-height: 1.7;
+      color: #b9c2d8;
+      margin-bottom: 35px;
+    }
+
+    .button {
+      display: inline-block;
+      background: #6c63ff;
+      color: white;
+      padding: 15px 30px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .button:hover {
+      transform: translateY(-3px);
+      background: #817aff;
+    }
+
+    section {
+      padding: 90px 8%;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 42px;
+      margin-bottom: 20px;
+    }
+
+    .section-description {
+      max-width: 750px;
+      margin: 0 auto 50px;
+      text-align: center;
+      color: #b9c2d8;
+      line-height: 1.7;
+      font-size: 18px;
+    }
+
+    .cards {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 25px;
+    }
+
+    .card {
+      background: #121a2e;
+      border: 1px solid #24304a;
+      border-radius: 18px;
+      padding: 30px;
+      width: 300px;
+      transition: 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      border-color: #6c63ff;
+    }
+
+    .card h3 {
+      color: #9baeff;
+      font-size: 24px;
+      margin-bottom: 15px;
+    }
+
+    .card p {
+      color: #b9c2d8;
+      line-height: 1.6;
+    }
+
+    .lyora {
+      max-width: 900px;
+      margin: auto;
+      background: linear-gradient(135deg, #161f3d, #10182b);
+      border: 1px solid #35446d;
+      border-radius: 25px;
+      padding: 50px;
+      text-align: center;
+    }
+
+    .lyora h2 {
+      font-size: 45px;
+      margin-bottom: 20px;
+    }
+
+    .lyora h2 span {
+      color: #9baeff;
+    }
+
+    .lyora p {
+      color: #b9c2d8;
+      line-height: 1.7;
+      font-size: 18px;
+      max-width: 650px;
+      margin: auto;
+    }
+
+    .roadmap {
+      max-width: 800px;
+      margin: auto;
+    }
+
+    .roadmap-item {
+      background: #121a2e;
+      border-left: 4px solid #6c63ff;
+      margin-bottom: 20px;
+      padding: 25px;
+      border-radius: 0 15px 15px 0;
+    }
+
+    .roadmap-item h3 {
+      margin-bottom: 10px;
+      color: #9baeff;
+    }
+
+    .roadmap-item p {
+      color: #b9c2d8;
+      line-height: 1.6;
+    }
+
+    .ideas-box {
+      max-width: 800px;
+      margin: auto;
+      background: #121a2e;
+      border: 1px solid #24304a;
+      padding: 35px;
+      border-radius: 20px;
+    }
+
+    .ideas-box h3 {
+      font-size: 28px;
+      margin-bottom: 10px;
+      color: #9baeff;
+    }
+
+    .ideas-box p {
+      color: #b9c2d8;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 140px;
+      resize: vertical;
+      padding: 15px;
+      border-radius: 12px;
+      border: 1px solid #35446d;
+      background: #0b1020;
+      color: white;
+      font-size: 16px;
+      margin-bottom: 15px;
+    }
+
+    textarea:focus {
+      outline: none;
+      border-color: #6c63ff;
+    }
+
+    button {
+      background: #6c63ff;
+      color: white;
+      border: none;
+      padding: 14px 25px;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #817aff;
+    }
+
+    .idea-preview {
+      display: none;
+      margin-top: 25px;
+      background: #0b1020;
+      border: 1px solid #24304a;
+      padding: 20px;
+      border-radius: 12px;
+    }
+
+    .idea-preview h4 {
+      color: #9baeff;
+      margin-bottom: 10px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 35px 20px;
+      background: #11182b;
+      color: #8f9ab3;
+    }
+
+    @media (max-width: 700px) {
+      header {
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      nav {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      section {
+        padding: 70px 20px;
+      }
+
+      .lyora {
+        padding: 35px 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="logo">K<span>VisionCore</span></div>
+
+    <nav>
+      <a href="#start">Start</a>
+      <a href="#bereiche">Bereiche</a>
+      <a href="#lyora">Lyora</a>
+      <a href="#roadmap">Roadmap</a>
+      <a href="#ideen">Ideen</a>
+    </nav>
+  </header>
+
+  <main>
+
+    <section class="hero" id="start">
+      <h1>Welcome to <span>KVisionCore</span></h1>
+
+      <p>
+        Eine wachsende Plattform für künstliche Intelligenz,
+        Software, digitale Werkzeuge und neue Ideen.
+      </p>
+
+      <a href="#bereiche" class="button">Vision entdecken</a>
+    </section>
+
+    <section id="bereiche">
+      <h2 class="section-title">Unsere Bereiche</h2>
+
+      <p class="section-description">
+        KVisionCore soll Schritt für Schritt wachsen. Diese Bereiche
+        zeigen, in welche Richtung sich das Projekt entwickeln kann.
+      </p>
+
+      <div class="cards">
+
+        <div class="card">
+          <h3>KI</h3>
+          <p>
+            Intelligente Tools, Assistenten und zukünftige
+            KI-Anwendungen.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Software</h3>
+          <p>
+            Programme und Werkzeuge, die Aufgaben einfacher,
+            schneller und übersichtlicher machen sollen.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Neue Projekte</h3>
+          <p>
+            Experimente, Ideen und neue digitale Projekte,
+            die KVisionCore in Zukunft erweitern.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="lyora">
+      <div class="lyora">
+        <h2>Meet <span>Lyora</span></h2>
+
+        <p>
+          Lyora ist der Name eines zukünftigen KI-Konzepts innerhalb
+          von KVisionCore. Die Idee soll sich im Laufe der Zeit
+          weiterentwickeln und neue Funktionen erhalten.
+        </p>
+      </div>
+    </section>
+
+    <section id="roadmap">
+      <h2 class="section-title">KVisionCore Roadmap</h2>
+
+      <p class="section-description">
+        Hier siehst du einige mögliche Entwicklungsschritte
+        für KVisionCore.
+      </p>
+
+      <div class="roadmap">
+
+        <div class="roadmap-item">
+          <h3>Phase 1 — Website</h3>
+          <p>
+            Aufbau einer modernen Website als zentrale Plattform
+            für KVisionCore.
+          </p>
+        </div>
+
+        <div class="roadmap-item">
+          <h3>Phase 2 — Tools</h3>
+          <p>
+            Entwicklung und Integration erster digitaler
+            Funktionen und Werkzeuge.
+          </p>
+        </div>
+
+        <div class="roadmap-item">
+          <h3>Phase 3 — KI</h3>
+          <p>
+            Erforschung und Integration von KI-Funktionen
+            in zukünftige KVisionCore-Projekte.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="ideen">
+      <h2 class="section-title">Ideen für KVisionCore</h2>
+
+      <p class="section-description">
+        Hier können Besucher später Ideen und Vorschläge
+        für zukünftige KVisionCore-Projekte teilen.
+      </p>
+
+      <div class="ideas-box">
+
+        <h3>Deine Idee</h3>
+
+        <p>
+          Schreib hier einen Vorschlag für eine Funktion,
+          ein Programm oder ein zukünftiges KVisionCore-Projekt.
+        </p>
+
+        <textarea
+          id="ideaInput"
+          placeholder="Schreibe deine Idee hier..."
+        ></textarea>
+
+        <button onclick="submitIdea()">Idee senden</button>
+
+        <div class="idea-preview" id="ideaPreview">
+          <h4>Deine Idee:</h4>
+          <p id="ideaText"></p>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>© 2026 KVisionCore</p>
+    <p>Intelligent Software. Simple Solutions.</p>
+  </footer>
+
+  <script>
+    function submitIdea() {
+      const input = document.getElementById("ideaInput");
+      const preview = document.getElementById("ideaPreview");
+      const ideaText = document.getElementById("ideaText");
+
+      if (input.value.trim() !== "") {
+        ideaText.textContent = input.value;
+        preview.style.display = "block";
+        input.value = "";
+      }
+    }
+  </script>
+
+</body>
+</html>
