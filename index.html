@@ -456,18 +456,8 @@
     <p>Intelligent Software. Simple Solutions.</p>
   </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 <script>
-  const SUPABASE_URL = "https://qweazkihznxjiifxpdiw.supabase.co";
-  const SUPABASE_KEY = "sb_publishable_8-t5WmsN5hWhTmWMI2aqZg_s55vLraG";
-
-  const supabase = window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
-  );
-
-  async function submitIdea() {
+  function submitIdea() {
     const input = document.getElementById("ideaInput");
     const idea = input.value.trim();
 
@@ -476,22 +466,14 @@
       return;
     }
 
-    const { error } = await supabase
-      .from("ideas")
-      .insert([
-        {
-          idea: idea
-        }
-      ]);
+    const email = "DEINE-EMAIL@BEISPIEL.DE";
+    const subject = "Neue Idee für KVisionCore";
+    const body = "Hallo,\n\nich habe eine Idee für KVisionCore:\n\n" + idea;
 
-    if (error) {
-      console.error(error);
-      alert("Fehler beim Speichern der Idee.");
-      return;
-    }
-
-    alert("Deine Idee wurde gespeichert!");
-    input.value = "";
+    window.location.href =
+      "mailto:" + email +
+      "?subject=" + encodeURIComponent(subject) +
+      "&body=" + encodeURIComponent(body);
   }
 </script>
 
