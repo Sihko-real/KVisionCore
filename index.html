@@ -456,19 +456,44 @@
     <p>Intelligent Software. Simple Solutions.</p>
   </footer>
 
-  <script>
-    function submitIdea() {
-      const input = document.getElementById("ideaInput");
-      const preview = document.getElementById("ideaPreview");
-      const ideaText = document.getElementById("ideaText");
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-      if (input.value.trim() !== "") {
-        ideaText.textContent = input.value;
-        preview.style.display = "block";
-        input.value = "";
-      }
+<script>
+  const SUPABASE_URL = "https://qweazkihznxjiifxpdiw.supabase.co/rest/v1/";
+  const SUPABASE_KEY = "sb_publishable_8-t5WmsN5hWhTmWMI2aqZg_s55vLraG";
+
+  const supabase = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
+
+  async function submitIdea() {
+    const input = document.getElementById("ideaInput");
+    const idea = input.value.trim();
+
+    if (idea === "") {
+      alert("Bitte schreibe zuerst eine Idee.");
+      return;
     }
-  </script>
+
+    const { error } = await supabase
+      .from("ideas")
+      .insert([
+        {
+          idea: idea
+        }
+      ]);
+
+    if (error) {
+      console.error(error);
+      alert("Fehler beim Speichern der Idee.");
+      return;
+    }
+
+    alert("Deine Idee wurde gespeichert!");
+    input.value = "";
+  }
+</script>
 
 </body>
 </html>
